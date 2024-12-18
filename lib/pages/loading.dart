@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:worldtime_weather/main.dart'; // Pristup globalnoj varijabli apiKey
+import 'package:worldtime_weather/services/world_time.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -10,41 +9,31 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  void getTime() async {
-    const timezone = 'Europe/London';
-    const apiUrl = 'https://api.api-ninjas.com/v1/worldtime?timezone=$timezone';
 
-    if (apiKey == null || apiKey!.isEmpty) {
-      print('API ključ nije pronađen!');
-      return;
-    }
+  String time = 'loading';
 
-    try {
-      final response = await http.get(
-        Uri.parse(apiUrl),
-        headers: {'X-Api-Key': apiKey!},
-      );
-
-      if (response.statusCode == 200) {
-        print('Response: ${response.body}');
-      } else {
-        print('Error: ${response.statusCode} - ${response.body}');
-      }
-    } catch (e) {
-      print('Došlo je do greške: $e');
-    }
+  void setupWorldTime() async{
+    WorldTime instance = WorldTime(timezone: 'Europe/London');
+    await instance.getTime();
+    print(instance.time);
+    setState(() {
+      time = instance.time;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    getTime();
+    setupWorldTime();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('loading screen')),
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(50.0),
+        child: Text(time),
+      ),
     );
   }
 }
