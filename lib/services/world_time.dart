@@ -14,8 +14,8 @@ class WorldTime {
     //required this.flag,
     required this.timezone});
 
-
   Future<void> getTime() async {
+
     final apiUrl = 'https://api.api-ninjas.com/v1/worldtime?timezone=$timezone';
 
     try {
