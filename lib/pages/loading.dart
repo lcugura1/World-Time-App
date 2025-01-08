@@ -12,7 +12,7 @@ class _LoadingState extends State<Loading> {
 
 
   void setupWorldTime() async{
-    WorldTime instance = WorldTime(timezone: 'Europe/London'); // definiranje vremenske zone
+    WorldTime instance = WorldTime(timezone: 'Europe/Zagreb'); // definiranje vremenske zone
     await instance.getTime();
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       'location': instance.timezone,

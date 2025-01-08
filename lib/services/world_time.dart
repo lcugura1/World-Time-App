@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import '../main.dart';
+
 
 class WorldTime {
 
@@ -30,7 +32,7 @@ class WorldTime {
         Map data = jsonDecode(response.body);
         String dateTime = data['datetime'];
         DateTime now = DateTime.parse(dateTime);
-        time = now.toString();
+        time = DateFormat.jm().format(now);
       } else {
         print('Error: ${response.statusCode} - ${response.body}');
       }
