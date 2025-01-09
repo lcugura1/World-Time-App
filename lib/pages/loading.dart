@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:worldtime_weather/services/world_time.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class Loading extends StatefulWidget {
   const Loading({super.key});
@@ -12,12 +13,11 @@ class _LoadingState extends State<Loading> {
 
 
   void setupWorldTime() async{
-    WorldTime instance = WorldTime(timezone: 'Europe/Zagreb'); // definiranje vremenske zone
+    WorldTime instance = WorldTime(timezone: 'Europe/London'); // definiranje vremenske zone
     await instance.getTime();
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       'location': instance.timezone,
       'time': instance.time,
-
     });
 
 
@@ -32,9 +32,15 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(50.0),
-        child: Text('loading'),
+      backgroundColor: Colors.grey[200],
+      body: const Center(
+        child: LoadingIndicator(
+            indicatorType: Indicator.ballClipRotatePulse, /// Required, The loading type of the widget
+            colors: const [Colors.black],       /// Optional, The color collections
+            strokeWidth: 2,                     /// Optional, The stroke of the line, only applicable to widget which contains line
+            backgroundColor: Colors.yellow,      /// Optional, Background of the widget
+            pathBackgroundColor: Colors.yellow   /// Optional, the stroke backgroundColor
+        ),
       ),
     );
   }
