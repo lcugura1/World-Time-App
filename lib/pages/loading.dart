@@ -32,16 +32,9 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: const Center(
-        child: LoadingIndicator(
-            indicatorType: Indicator.ballClipRotatePulse, /// Required, The loading type of the widget
-            colors: const [Colors.black],       /// Optional, The color collections
-            strokeWidth: 2,                     /// Optional, The stroke of the line, only applicable to widget which contains line
-            backgroundColor: Colors.yellow,      /// Optional, Background of the widget
-            pathBackgroundColor: Colors.yellow   /// Optional, the stroke backgroundColor
-        ),
-      ),
+        backgroundColor: Colors.grey[200],
+        body: const Center(
+          child: CircularProgressIndicator(),
+        )
     );
-  }
 }
