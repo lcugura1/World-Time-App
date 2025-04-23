@@ -12,15 +12,14 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
 
 
-  void setupWorldTime() async{
-    WorldTime instance = WorldTime(timezone: 'Europe/London'); // definiranje vremenske zone
+  void setupWorldTime() async {
+    WorldTime instance = WorldTime(
+        timezone: 'Europe/Berlin'); // definiranje vremenske zone
     await instance.getTime();
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       'location': instance.timezone,
       'time': instance.time,
     });
-
-
   }
 
   @override
@@ -37,4 +36,5 @@ class _LoadingState extends State<Loading> {
           child: CircularProgressIndicator(),
         )
     );
+  }
 }
